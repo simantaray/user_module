@@ -90,13 +90,11 @@ app.post("/api/login", async (req, res) => {
     expiresIn: "24h",
   });
 
-  res
-    .status(200)
-    .json({
-      message: `Welcome ${username}, you are logged in`,
-      username: user.username,
-      token,
-    });
+  res.status(200).json({
+    message: `Welcome ${username}, you are logged in`,
+    username: user.username,
+    token,
+  });
 });
 
 // Middleware to verify JWT
@@ -127,6 +125,10 @@ app.get("/api/protected", authenticateJWT, (req, res) => {
   res.status(200).json({
     message: `Hello, ${req.user.username}. This is a protected route.`,
   });
+});
+
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
 });
 
 // Start server
